@@ -1,5 +1,7 @@
 # Prisma binding argument transform
 
+![Build status](https://github.com/prisma/prisma-binding-argument-transform/workflows/CI/badge.svg)
+
 ## Local Development
 
 ### `npm start` or `yarn start`
