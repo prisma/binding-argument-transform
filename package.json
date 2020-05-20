@@ -1,0 +1,45 @@
+{
+  "version": "0.1.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build"
+  },
+  "peerDependencies": {},
+  "prettier": {
+    "semi": true,
+    "singleQuote": true
+  },
+  "name": "prisma-binding-argument-transform",
+  "author": "Ryan Dsouza",
+  "module": "dist/prisma-binding-argument-transform.esm.js",
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "lint-staged": ">=10",
+    "prettier": "^2.0.5",
+    "tsdx": "^0.13.2",
+    "tslib": "^2.0.0",
+    "typescript": "^3.9.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,ts}": "tsdx lint",
+    "*.{js,ts,md,json}": "prettier --write"
+  }
+}
