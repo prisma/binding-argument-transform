@@ -26,6 +26,8 @@
   "author": "Ryan Dsouza",
   "module": "dist/prisma-binding-argument-transform.esm.js",
   "devDependencies": {
+    "@types/lodash": "^4.14.152",
+    "eslint-plugin-prettier": "^3.1.3",
     "husky": "^4.2.5",
     "lint-staged": ">=10",
     "prettier": "^2.0.5",
@@ -41,5 +43,9 @@
   "lint-staged": {
     "*.{js,ts}": "tsdx lint",
     "*.{js,ts,md,json}": "prettier --write"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15",
+    "lodash-es": "^4.17.15"
   }
 }
