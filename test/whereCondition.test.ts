@@ -50,29 +50,88 @@ it('combines the properties of the same field', () => {
   });
 });
 
-it(`handles 'not_in' as a specific case`, () => {
+it(`handles 'not' preceding operators as a special case`, () => {
   expect(
     makeWherePrisma2Compatible({
       title_not_in: ['graphql', 'prisma'],
     })
   ).toEqual({
     title: {
+      notIn: ['graphql', 'prisma'],
+    },
+  });
+
+  expect(
+    makeWherePrisma2Compatible({
+      title_not_in: ['graphql', 'prisma'],
+      title_not_starts_with: 'searchstring',
+    })
+  ).toEqual({
+    title: {
+      notIn: ['graphql', 'prisma'],
       not: {
-        in: ['graphql', 'prisma'],
+        startsWith: 'searchstring',
       },
     },
   });
+
   expect(
     makeWherePrisma2Compatible({
-      title_not_in: ['graphql', 'prisma'],
-      title_starts_with: 'searchstring',
+      title_not_contains: 'this',
+      title_not_starts_with: 'searchstring',
     })
   ).toEqual({
     title: {
-      startsWith: 'searchstring',
       not: {
-        in: ['graphql', 'prisma'],
+        startsWith: 'searchstring',
+        contains: 'this',
       },
     },
+  });
+});
+
+it(`correctly functions on 'AND', 'OR' and 'NOT' operators`, () => {
+  expect(
+    makeWherePrisma2Compatible({
+      OR: [
+        { title_contains: 'searchString' },
+        { content_contains: 'searchString' },
+      ],
+    })
+  ).toEqual({
+    OR: [
+      { title: { contains: 'searchString' } },
+      { content: { contains: 'searchString' } },
+    ],
+  });
+
+  expect(
+    makeWherePrisma2Compatible({
+      content_contains: 'searchString',
+      OR: { title_contains: 'searchString' },
+    })
+  ).toEqual({
+    content: {
+      contains: 'searchString',
+    },
+    OR: { title: { contains: 'searchString' } },
+  });
+
+  expect(
+    makeWherePrisma2Compatible({
+      AND: [
+        { email: 'email' },
+        {
+          OR: [{ name_starts_with: 'first' }, { name_ends_with: 'last' }],
+        },
+      ],
+    })
+  ).toEqual({
+    AND: [
+      { email: 'email' },
+      {
+        OR: [{ name: { startsWith: 'first' } }, { name: { endsWith: 'last' } }],
+      },
+    ],
   });
 });
