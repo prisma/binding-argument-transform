@@ -50,6 +50,28 @@ it('combines the properties of the same field', () => {
   });
 });
 
+it('works on enum types correctly', () => {
+  expect(
+    makeWherePrisma2Compatible({
+      type: 'USER',
+      status_not: 'ACTIVE',
+    })
+  ).toEqual({
+    type: 'USER',
+    status: { not: 'ACTIVE' },
+  });
+
+  expect(
+    makeWherePrisma2Compatible({
+      type_in: ['ADMIN', 'SUPERADMIN'],
+      status_not_in: ['DELETED', 'DEACTIVATED'],
+    })
+  ).toEqual({
+    type: { in: ['ADMIN', 'SUPERADMIN'] },
+    status: { notIn: ['DELETED', 'DEACTIVATED'] },
+  });
+});
+
 it(`handles 'not' preceding operators as a special case`, () => {
   expect(
     makeWherePrisma2Compatible({
