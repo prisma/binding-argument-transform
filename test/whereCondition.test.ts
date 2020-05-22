@@ -157,3 +157,70 @@ it(`correctly functions on 'AND', 'OR' and 'NOT' operators`, () => {
     ],
   });
 });
+
+it('correctly works on relation related operators', () => {
+  expect(
+    makeWherePrisma2Compatible({
+      posts_some: {
+        title_contains: 'graphql',
+      },
+    })
+  ).toEqual({
+    posts: {
+      some: {
+        title: {
+          contains: 'graphql',
+        },
+      },
+    },
+  });
+
+  expect(
+    makeWherePrisma2Compatible({
+      type_in: ['ADMIN', 'SUPERADMIN'],
+      posts_every: {
+        name_not_starts_with: 'graphql',
+      },
+    })
+  ).toEqual({
+    type: { in: ['ADMIN', 'SUPERADMIN'] },
+    posts: {
+      every: {
+        name: {
+          not: {
+            startsWith: 'graphql',
+          },
+        },
+      },
+    },
+  });
+
+  expect(
+    makeWherePrisma2Compatible({
+      OR: [
+        { type_in: ['ADMIN', 'SUPERADMIN'] },
+
+        {
+          posts_every: {
+            name_not_starts_with: 'graphql',
+          },
+        },
+      ],
+    })
+  ).toEqual({
+    OR: [
+      { type: { in: ['ADMIN', 'SUPERADMIN'] } },
+      {
+        posts: {
+          every: {
+            name: {
+              not: {
+                startsWith: 'graphql',
+              },
+            },
+          },
+        },
+      },
+    ],
+  });
+});

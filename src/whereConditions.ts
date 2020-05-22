@@ -1,14 +1,14 @@
 import { camelCase } from 'lodash';
-import { findOperator, isNotPreceding } from './utils';
+import { findOperator, isNotPreceding, isRelationshipOperator } from './utils';
 
 export const transformSpecialNotOperators = (operator: string, value: any) => {
-  let [, modifiedOperator] = operator.split('_not');
+  const [, modifiedOperator] = operator.split('_not');
   return {
     [camelCase(modifiedOperator)]: value,
   };
 };
 
-export const transformConditionals = (input: any) => {
+export const transformNestedOperators = (input: any) => {
   if (Array.isArray(input)) {
     const output = [];
     for (let item of input) {
@@ -20,7 +20,6 @@ export const transformConditionals = (input: any) => {
   }
 };
 
-// TODO: relation based operators
 export const makeWherePrisma2Compatible = (input: any): any => {
   const transformedWhere: any = {};
 
@@ -29,9 +28,9 @@ export const makeWherePrisma2Compatible = (input: any): any => {
 
     // not any of P1 operators
     if (operator === key) {
-      // perform transformation for special operators
+      // perform transformation for logical operators
       if (['AND', 'OR', 'NOT'].includes(operator)) {
-        transformedWhere[operator] = transformConditionals(val);
+        transformedWhere[operator] = transformNestedOperators(val);
       } else {
         transformedWhere[operator] = val;
       }
@@ -45,6 +44,13 @@ export const makeWherePrisma2Compatible = (input: any): any => {
             ...transformedWhere[field]?.not,
             ...transformSpecialNotOperators(operator, val),
           },
+        };
+      } else if (isRelationshipOperator(operator)) {
+        // handle relationship operators: `some`, `every`, `none`
+        const prisma2Operator = camelCase(operator.slice(1));
+        transformedWhere[field] = {
+          ...transformedWhere[field],
+          [prisma2Operator]: transformNestedOperators(val),
         };
       } else {
         // transform P1 operators to P2

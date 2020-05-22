@@ -1,3 +1,5 @@
+const relationshipOperators = ['_some', '_every', '_none'];
+
 const notOperatorOptions = [
   '_not_contains',
   '_not_starts_with',
@@ -7,6 +9,7 @@ const notOperatorOptions = [
 const whereOptions = [
   '_not_in',
   ...notOperatorOptions,
+  ...relationshipOperators,
   '_not',
   '_in',
   '_lte',
@@ -27,4 +30,8 @@ export const findOperator = (query: string): [string, number] => {
 
 export const isNotPreceding = (operator: string) => {
   return notOperatorOptions.some((option) => operator.endsWith(option));
+};
+
+export const isRelationshipOperator = (operator: string) => {
+  return relationshipOperators.some((option) => operator.endsWith(option));
 };
