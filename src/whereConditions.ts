@@ -21,6 +21,9 @@ export const transformNestedOperators = (input: any) => {
 };
 
 export const makeWherePrisma2Compatible = (input: any): any => {
+  if (typeof input === 'undefined') {
+    return undefined;
+  }
   const transformedWhere: any = {};
 
   for (let [key, val] of Object.entries(input)) {
