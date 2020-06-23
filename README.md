@@ -6,13 +6,13 @@
 
 ### Installation
 
-Run `yarn add git+https://git@github.com:prisma/prisma-binding-argument-transform.git` or `npm install git+https://git@github.com:prisma/prisma-binding-argument-transform.git` to install it in your project.
+Run `yarn add @prisma/binding-argument-transform` or `npm i @prisma/binding-argument-transform` to install it in your project.
 
 ### Usage
 
 ```ts
-// import { makeWherePrisma2Compatible, makeOrderByPrisma2Compatible } from 'prisma-binding-argument-transformer'
-const { makeWherePrisma2Compatible, makeOrderByPrisma2Compatible } = require('prisma-binding-argument-transformer')
+// import { makeWherePrisma2Compatible, makeOrderByPrisma2Compatible } from '@prisma/binding-argument-transform'
+const { makeWherePrisma2Compatible, makeOrderByPrisma2Compatible } = require('@prisma/binding-argument-transform')
 
 const resolvers = {
   Query: {
