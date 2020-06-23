@@ -22,9 +22,13 @@
     "semi": true,
     "singleQuote": true
   },
-  "name": "prisma-binding-argument-transform",
-  "author": "Ryan Dsouza",
-  "module": "dist/prisma-binding-argument-transform.esm.js",
+  "name": "@prisma/binding-argument-transform",
+  "module": "dist/binding-argument-transform.esm.js",
+  "publisher": "Prisma",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/prisma/binding-argument-transform/"
+  },
   "devDependencies": {
     "@types/lodash": "^4.14.152",
     "eslint-plugin-prettier": "^3.1.3",
