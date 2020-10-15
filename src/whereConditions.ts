@@ -35,11 +35,10 @@ export const makeWherePrisma2Compatible = (input: any): any => {
       if (['AND', 'OR', 'NOT'].includes(operator)) {
         transformedWhere[operator] = transformNestedOperators(val);
       } else {
-        if (typeof val === 'object' && !Array.isArray(val)) {
-          transformedWhere[operator] = transformNestedOperators(val);
-        } else {
-          transformedWhere[operator] = val;
-        }
+        transformedWhere[operator] =
+          typeof val === 'object' && !Array.isArray(val) && val !== null
+          ? transformNestedOperators(val)
+          : val;
       }
     } else {
       const field = key.slice(0, index);
