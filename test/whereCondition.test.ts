@@ -237,4 +237,20 @@ it('correctly works on relation related operators', () => {
       },
     },
   });
+
+  expect(
+    makeWherePrisma2Compatible({
+      posts: {
+        title_contains: 'searchstring',
+        reviewer: null,
+      },
+    })
+  ).toEqual({
+    posts: {
+      title: {
+        contains: 'searchstring',
+      },
+      reviewer: null
+    },
+  });
 });
