@@ -250,7 +250,7 @@ it('correctly works on relation related operators', () => {
       title: {
         contains: 'searchstring',
       },
-      reviewer: null
+      reviewer: null,
     },
   });
 });
