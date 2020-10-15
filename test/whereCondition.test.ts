@@ -228,7 +228,7 @@ it('correctly works on relation related operators', () => {
     makeWherePrisma2Compatible({
       posts: {
         title_contains: 'searchstring',
-      }
+      },
     })
   ).toEqual({
     posts: {
