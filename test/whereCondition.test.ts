@@ -233,7 +233,7 @@ it('correctly works on relation related operators', () => {
   ).toEqual({
     posts: {
       title: {
-        contains: 'searchstring'
+        contains: 'searchstring',
       },
     },
   });
