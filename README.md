@@ -1,5 +1,7 @@
 # Prisma binding argument transform
 
+Converting Prisma 1 arguments to Prisma 2 to make it compatible. More info on how to use this while migrating from Prisma 1 to Prisma 2 in our [docs](https://www.prisma.io/docs/guides/upgrade-guides/upgrade-from-prisma-1/upgrading-prisma-binding-to-sdl-first#implementing-the-users-resolver-with-prisma-client).
+
 ![Build status](https://github.com/prisma/prisma-binding-argument-transform/workflows/CI/badge.svg)
 
 ## Installation and Usage
