@@ -44,7 +44,7 @@
     "*.{js,ts,md,json}": "prettier --write"
   },
   "dependencies": {
-    "lodash": "^4.17.19",
+    "lodash": "^4.17.21",
     "lodash-es": "^4.17.15"
   }
 }
